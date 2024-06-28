@@ -1,6 +1,40 @@
+import msvcrt
+
 from zaber_motion import Units
 from zaber_motion.ascii import Connection
 import numpy as np
+import keyboard
+import pyautogui
+
+
+def input_step():
+    step = input("Enter step size in mm: ")
+    print("Thank you. If you would like to change your step size at any point, press 'c'.")
+    print("Please use arrow keys to navigate to your origin. Hit 'f' to finish")
+    return float(step)
+
+
+def free_move():
+
+    step = input_step()
+    while not keyboard.is_pressed('f'):
+        if keyboard.is_pressed('left'):
+            left(step)
+            pyautogui.press('right')
+        elif keyboard.is_pressed('right'):
+            right(step)
+            pyautogui.press('left')
+        elif keyboard.is_pressed('up'):
+            up(step)
+            pyautogui.press('down')
+        elif keyboard.is_pressed('down'):
+            down(step)
+            pyautogui.press('up')
+        elif keyboard.is_pressed('c'):
+            pyautogui.press('backspace')
+            step = input_step()
+        else:
+            continue
 
 
 def set_origin(a,b):
@@ -16,20 +50,28 @@ def reset():
 
 
 def left(a):
-    axis1.move_relative(float(a), Units.LENGTH_MILLIMETRES)
-
+    try:
+        axis1.move_relative(float(a), Units.LENGTH_MILLIMETRES)
+    except Exception:
+        print("Out of Range - left")
 
 def right(a):
-    axis1.move_relative(-float(a), Units.LENGTH_MILLIMETRES)
-
+    try:
+        axis1.move_relative(-float(a), Units.LENGTH_MILLIMETRES)
+    except Exception:
+        print("Out of Range - right")
 
 def up(a):
-    axis2.move_relative(-float(a), Units.LENGTH_MILLIMETRES)
-
+    try:
+        axis2.move_relative(-float(a), Units.LENGTH_MILLIMETRES)
+    except Exception:
+        print("Out of Range - up")
 
 def down(a):
-    axis2.move_relative(float(a), Units.LENGTH_MILLIMETRES)
-
+    try:
+        axis2.move_relative(float(a), Units.LENGTH_MILLIMETRES)
+    except Exception:
+        print("Out of Range - down")
 
 with Connection.open_serial_port("COM5") as connection:
     connection.enable_alerts()
@@ -50,15 +92,19 @@ with Connection.open_serial_port("COM5") as connection:
     if not axis2.is_homed():
       axis2.home()
 
+
+    print("Done")
     origin = input("Enter your origin in mm(x,y): ")
     a,b = origin.split(",")
     a = float(a)
     b = float(b)
     set_origin(a,b)
+    free_move()
+
 
     l = input("Enter desired capture length of sample (mm): ")
     l = int(np.ceil(float(l)))
-    w = input("Enter desired captre width of sample (mm): ")
+    w = input("Enter desired capture width of sample (mm): ")
     w = int(np.ceil(float(w)))
     s = input("Enter field of view (mm): ")
     o = input("Enter overlap percentage: ")
