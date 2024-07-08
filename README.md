@@ -33,11 +33,14 @@ The suggested APIs for the Pythonic control that would achieve these levels of a
 The motion discussed in this section is intended to control what is being seen on the camera, more than the actual motion of the stages. The idea is that the stages actually move in the direction opposite to that of the actual motion, which results in the image displayed on the screen to move in the intended direction. This also helps with the stitching process.
 The code to optimize the Zaber stages has 3 primary functions, each of which can be accessed using the input prompts that are coded into the script. Once the user decides the function, they set the origin either by entering coordinates or via manual actuation.
 
-**1. User-controlled motion**
+**1. User-controlled motion:**
+
 This is a completely free-form motion environment, wherein one can control the motion of the stages using the arrow keys on the keyboard. It is characterized by the free_move() function, which enables completely user-defined motion, down to the desired step size. The primary purpose of this mode is for simple inspection pre-imaging, wherein the user can get an understanding of the area of the sample they'd like to capture.
 
-**2. Fully automated snaking**
+**2. Fully automated snaking:**
+
 This is an environment that allows the user to automate the snaking process as desired (either by rows or columns). For now, this is useful for inspection and confirmation that their snaking process will allow for a complete capture as desired by them. It is characterized by the snake_rows() and snake_columns() functions and will be modified in the future to include camera capture and image stitching functionality for further automation.
 
-**3. User-automated snaking for imaging**
+**3. User-automated snaking for imaging:**
+
 This environment combines 1 & 2, providing the user with a mode where they can perform the snaking manually. This would be helpful in case camera settings are required to be changed at each stage, with the 'spacebar' key resulting in the continuation of the motion as desired. Once the user inputs their snaking pattern, they control the step size and the motion of the stages, in order to manually capture images at each desired point. It is characterized by the col_manual() and row_manual() functions and is currently the best option for surfaces with varying depths, since these surfaces require constant refocusing for enhanced image clarity.
