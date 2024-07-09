@@ -72,7 +72,7 @@ def col_manual():
     while i<l:
         if (i % 2 == 0):
             j = 0
-            while (j < w):
+            while (j < w-1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 if keyboard.is_pressed('spacebar'):
@@ -82,7 +82,7 @@ def col_manual():
 
         else:
             j = w
-            while (j > 0):
+            while (j > 1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 if keyboard.is_pressed('spacebar'):
@@ -102,7 +102,7 @@ def row_manual():
     while i<w:
         if (i % 2 == 0):
             j = 0
-            while (j < l):
+            while (j < l-1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 if keyboard.is_pressed('spacebar'):
@@ -112,7 +112,7 @@ def row_manual():
 
         else:
             j = l
-            while (j > 0):
+            while (j > 1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 if keyboard.is_pressed('spacebar'):
@@ -130,7 +130,7 @@ def snake_columns():
     for i in range(0, l):
         if (i % 2 == 0):
             j = 0
-            while (j < w):
+            while (j < w-1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 up(step)
@@ -139,7 +139,7 @@ def snake_columns():
 
         else:
             j = w
-            while (j > 0):
+            while (j > 1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 down(step)
@@ -155,7 +155,7 @@ def snake_rows():
     for i in range(0, w):
         if (i % 2 == 0):
             j = 0
-            while (j < l):
+            while (j < l-1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 right(step)
@@ -164,7 +164,7 @@ def snake_rows():
 
         else:
             j = l
-            while (j > 0):
+            while (j > 1):
                 # get_image()
                 # save_image(tile_{k}.tif) to directory
                 left(step)
