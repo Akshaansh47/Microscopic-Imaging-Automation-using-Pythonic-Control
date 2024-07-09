@@ -12,7 +12,7 @@ def automatic():
     w = int(np.ceil(float(w)))
     s = input("Enter field of view (mm): ")
     o = input("Enter overlap percentage: ")
-    step = ((100 - float(o)) / 100)  # Step size for motion
+    step = float(s)*((100 - float(o)) / 100)  # Step size for motion
     return l,w,step
 
 
