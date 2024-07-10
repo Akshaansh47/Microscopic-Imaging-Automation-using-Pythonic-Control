@@ -2,7 +2,8 @@ from zaber_motion import Units
 from zaber_motion.ascii import Connection
 import numpy as np
 import keyboard
-import pyautogui
+import pyautogui as pg
+import time
 
 
 def automatic():
@@ -39,22 +40,22 @@ def free_move():
     while not keyboard.is_pressed('f'):
         if keyboard.is_pressed('left'):
             left(step)
-            pyautogui.press('right')
+            pg.press('right')
         elif keyboard.is_pressed('right'):
             right(step)
-            pyautogui.press('left')
+            pg.press('left')
         elif keyboard.is_pressed('up'):
             up(step)
-            pyautogui.press('down')
+            pg.press('down')
         elif keyboard.is_pressed('down'):
             down(step)
-            pyautogui.press('up')
+            pg.press('up')
         elif keyboard.is_pressed('c'):
-            pyautogui.press('backspace')
+            pg.press('backspace')
             step = input_step()
         else:
             continue
-    pyautogui.press('backspace')
+    pg.press('backspace')
 
 
 def set_origin():
@@ -174,6 +175,73 @@ def snake_rows():
         up(step)
 
 
+def full_auto_col():
+    l, w, step = automatic()
+    print("Press hit enter after navigating to imaging software and ready")
+    keyboard.wait('enter')
+    k = 1  # Image counter
+    for i in range(0, l):
+        if (i % 2 == 0):
+            j = 0
+            while (j < w - 1):
+                time.sleep(0.5)
+                save(k)
+                up(step)
+                j += 1
+                k += 1
+
+        else:
+            j = w
+            while (j > 1):
+                time.sleep(0.5)
+                save(k)
+                down(step)
+                j -= 1
+                k += 1
+        time.sleep(0.5)
+        save(k)
+        k += 1
+        right(step)
+
+def full_auto_row():
+    l, w, step = automatic()
+    print("Press hit enter after navigating to imaging software and ready")
+    keyboard.wait('enter')
+    k = 1  # Image counter
+    for i in range(0, w):
+        if (i % 2 == 0):
+            j = 0
+            while (j < l-1):
+                time.sleep(0.5)
+                save(k)
+                right(step)
+                j += 1
+                k += 1
+
+        else:
+            j = l
+            while (j > 1):
+                time.sleep(0.5)
+                save(k)
+                left(step)
+                j -= 1
+                k += 1
+        time.sleep(0.5)
+        save(k)
+        k += 1
+        up(step)
+
+
+def save(k):
+    pg.hotkey('ctrl', 's')
+    if k <= 9:
+        pg.write('tile_{0' + str(k) + '}.tif')
+        pg.press('enter')
+    else:
+        pg.write('tile_{' + str(k) + '}.tif')
+        pg.press('enter')
+
+
 def reset():
     axis1.move_absolute(12.5, Units.LENGTH_MILLIMETRES)
     axis2.move_absolute(12.5, Units.LENGTH_MILLIMETRES)
@@ -229,7 +297,8 @@ with Connection.open_serial_port("COM5") as connection:
     option = input("Welcome! Would you like to:\n"
                    "1. Move the Zaber manually (with your keyboard)\n"
                    "2. Snake automatically for sample inspection?\n"
-                   "3. Snake for image capture (using spacebar).\n")
+                   "3. Snake for image capture (using spacebar)?\n"
+                   "4. Complete automation including image capture?\n")
     option = int(option)
 
     set_in = input("Set origin by coordinates (1) or manually by keyboard (2)?\n")
@@ -251,6 +320,13 @@ with Connection.open_serial_port("COM5") as connection:
             snake_columns()
     elif option == 3:
         manual()
+    elif option == 4:
+        sn = input("1. Snake by rows? \n2. Snake by columns?\n")
+        sn = int(sn)
+        if sn == 1:
+            full_auto_row()
+        elif sn == 2:
+            full_auto_col()
     else:
         print("Invalid, try again")
 
