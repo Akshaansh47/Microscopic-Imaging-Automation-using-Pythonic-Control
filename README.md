@@ -44,3 +44,7 @@ This is an environment that allows the user to automate the snaking process as d
 **3. User-automated snaking (for imaging):**
 
 This environment combines 1 & 2, providing the user with a mode where they can perform the snaking manually. This would be helpful in case camera settings are required to be changed at each stage, with the 'spacebar' key resulting in the continuation of the motion as desired. Once the user inputs their snaking pattern, they control the step size and the motion of the stages, in order to manually capture images at each desired point. It is characterized by the col_manual() and row_manual() functions and is currently the best option for surfaces with varying depths, since these surfaces require constant refocusing for enhanced image clarity.
+
+**4. Fully automated (for snaking, imaging and saving):**
+
+This environment brings together all functionalities to enable the user to simply hit 'enter' after inputting their desired outcomes. The code runs the Zaber stages and automatically clicks and saves the pictures in real time. A slight delay is added in order to negate the motion artifacts brought about by the rapid consistent motion, which allows for clearer images. This mode is particularly useful in case there is no constant refocussing required with the camera, and cuts down runtime to much less than it would be. The saved files are initialized with the ImageJ stitching format.
