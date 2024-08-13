@@ -235,10 +235,10 @@ def full_auto_row():
 def save(k):
     pg.hotkey('ctrl', 's')
     if k <= 9:
-        pg.write('tile_{0' + str(k) + '}.tif')
+        pg.write('tile_0' + str(k) + '.tif')
         pg.press('enter')
     else:
-        pg.write('tile_{' + str(k) + '}.tif')
+        pg.write('tile_' + str(k) + '.tif')
         pg.press('enter')
 
 
