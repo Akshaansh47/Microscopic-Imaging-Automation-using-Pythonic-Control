@@ -31,7 +31,7 @@ The suggested APIs for the Pythonic control that would achieve these levels of a
 # Zaber Full Automation Guide:
 
 The motion discussed in this section is intended to control what is being seen on the camera, more than the actual motion of the stages. The idea is that the stages actually move in the direction opposite to that of the actual motion, which results in the image displayed on the screen to move in the intended direction. This also helps with the stitching process.
-The code to optimize the Zaber stages has 3 primary functions, each of which can be accessed using the input prompts that are coded into the script. Once the user decides the function, they set the origin either by entering coordinates or via manual actuation.
+The code to optimize the Zaber stages has 4 primary functions, each of which can be accessed using the input prompts that are coded into the script. Once the user decides the function, they set the origin either by entering coordinates or via manual actuation.
 
 **1. User-controlled motion (for inspection):**
 
